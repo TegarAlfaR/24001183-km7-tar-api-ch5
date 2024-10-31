@@ -30,6 +30,9 @@ module.exports = {
       deleted_by: {
         type: Sequelize.INTEGER
       },
+      deleted_at: {
+        type: Sequelize.DATE
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

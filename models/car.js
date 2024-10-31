@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     year: DataTypes.INTEGER,
     created_by: DataTypes.INTEGER,
     updated_by: DataTypes.INTEGER,
-    deleted_by: DataTypes.INTEGER
+    deleted_by: DataTypes.INTEGER,
+    deleted_at: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Car',
