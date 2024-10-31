@@ -1,1 +1,1 @@
-![database](./public/images/erd_db.png)
+![database](./public/images/db-erd.png)
