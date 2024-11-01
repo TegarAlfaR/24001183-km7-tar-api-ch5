@@ -11,17 +11,69 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Car.belongsTo(models.User, { foreignKey: 'created_by', as: 'carsCreated' })
+      Car.belongsTo(models.User, { foreignKey: 'updated_by', as: 'carsUpdated' })
+      Car.belongsTo(models.User, { foreignKey: 'deleted_by', as: 'carsDeleted' })
     }
   }
   Car.init({
-    model: DataTypes.STRING,
-    brand: DataTypes.STRING,
-    license_plate: DataTypes.STRING,
-    year: DataTypes.INTEGER,
-    created_by: DataTypes.INTEGER,
-    updated_by: DataTypes.INTEGER,
-    deleted_by: DataTypes.INTEGER,
-    deleted_at: DataTypes.DATE
+    model: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    brand: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    license_plate: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    year: {
+      type: DataTypes.INTEGER,
+      validate: {
+        min: 2000
+      }
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'available'
+    },
+    created_by: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'User',
+        key: 'id'
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    },
+    updated_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'User',
+        key: 'id'
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    },
+    deleted_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'User',
+        key: 'id'
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    },
+    deleted_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   }, {
     sequelize,
     modelName: 'Car',

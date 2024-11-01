@@ -11,12 +11,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Auth.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' })
     }
   }
   Auth.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    user_id: DataTypes.INTEGER
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: true
+        }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+        validate: {
+          len: [8, 100]
+        }
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'User',
+        key: 'id'
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    },
   }, {
     sequelize,
     modelName: 'Auth',
