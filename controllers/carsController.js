@@ -13,7 +13,7 @@ const getCars = async (req, res) =>{
         }else{
             res.status(200).json({
                 status: "Success",
-                message: "Succes get all data",
+                message: "Succes get all car data",
                 isSuccess: true,
                 data: cars
             })
@@ -110,7 +110,7 @@ const updateCar = async (req, res) =>{
         const findCar = await Car.findByPk(id)
 
         if(!findCar){
-            res.status(404).json({
+            return res.status(404).json({
                 status: "Failed",
                 message: "Car not found",
                 isSuccess: false,
