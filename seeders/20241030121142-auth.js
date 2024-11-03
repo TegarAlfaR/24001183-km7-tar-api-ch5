@@ -14,11 +14,11 @@ module.exports = {
       throw new Error('User "Super Admin" tidak ditemukan');
     }
 
-    const hashedPassword = await bcrypt.hash('superadmin123@password', 10); 
+    const hashedPassword = await bcrypt.hash('superadmin@password123', 10); 
 
     return queryInterface.bulkInsert('Auths', [
       {
-        email: 'superadmin@example.com',
+        email: 'superadmin@gmail.com',
         password: hashedPassword,
         user_id: user.id,
         createdAt: new Date(),

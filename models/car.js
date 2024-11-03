@@ -47,7 +47,6 @@ module.exports = (sequelize, DataTypes) => {
         model: 'User',
         key: 'id'
       },
-      onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
     updated_by: {
@@ -57,7 +56,6 @@ module.exports = (sequelize, DataTypes) => {
         model: 'User',
         key: 'id'
       },
-      onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
     deleted_by: {
@@ -67,7 +65,6 @@ module.exports = (sequelize, DataTypes) => {
         model: 'User',
         key: 'id'
       },
-      onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
     deleted_at: {

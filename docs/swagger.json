@@ -1,0 +1,3472 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Cars Rental",
+      "description": "## This is the main folder for organizing all Car Rental API collections, including endpoints for car management, health checks, authentication, and user management",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://{{base_url}}"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Cars",
+        "description": "### Endpoints for managing car data, available only to authorized users with specific roles.\n\n### Note :\n\n- base_url = localhost:3000/api/v1\n    \n- token = your jwt token.  \n    Example : awownfisbviubvwoufb29ty298t3igb"
+      },
+      {
+        "name": "Health Check",
+        "description": "### A collection to check server functionality and availability.\n\n### Note :\n\n- base_url = localhost:3000/api/v1"
+      },
+      {
+        "name": "Auth",
+        "description": "### Authentication endpoints for managing login and registration actions\n\n### Note :\n\n- base_url = localhost:3000/api/v1\n    \n- token = your jwt token.  \n    Example : awownfisbviubvwoufb29ty298t3igb"
+      },
+      {
+        "name": "User",
+        "description": "### Endpoints for managing user data in the system\n\n### Note :\n\n- base_url = localhost:3000/api/v1\n    \n- token = your jwt token.  \n    Example : awownfisbviubvwoufb29ty298t3igb"
+      }
+    ],
+    "paths": {
+      "/cars": {
+        "get": {
+          "tags": [
+            "Cars"
+          ],
+          "summary": "All Cars",
+          "description": "Retrieves all available car data with options for filtering and pagination.",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            },
+            {
+              "name": "model",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Avanza"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "76"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4c-KeR32BzZh6Biz/NnXxmCdorXjMQ\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 04:16:15 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "examples": {
+                    "example-0": {
+                      "summary": "Success Get All Cars But No Records",
+                      "value": {
+                        "status": "Success",
+                        "message": "No records found",
+                        "isSuccess": true,
+                        "data": []
+                      }
+                    },
+                    "example-1": {
+                      "summary": "Success Get All Car",
+                      "value": {
+                        "status": "Success",
+                        "message": "Succes get all car data",
+                        "isSuccess": true,
+                        "data": {
+                          "totalData": 3,
+                          "cars": [
+                            {
+                              "id": 1,
+                              "model": "Avanza",
+                              "brand": "Veloz",
+                              "license_plate": "B 2020 FC",
+                              "year": 2022,
+                              "status": "available",
+                              "created_by": 1,
+                              "updated_by": null,
+                              "deleted_by": null,
+                              "deleted_at": null,
+                              "createdAt": "2024-11-03T04:17:34.406Z",
+                              "updatedAt": "2024-11-03T04:17:34.406Z"
+                            },
+                            {
+                              "id": 2,
+                              "model": "Daihatsu",
+                              "brand": "Xenia",
+                              "license_plate": "B 1134 FC",
+                              "year": 2021,
+                              "status": "available",
+                              "created_by": 1,
+                              "updated_by": null,
+                              "deleted_by": null,
+                              "deleted_at": null,
+                              "createdAt": "2024-11-03T04:22:08.464Z",
+                              "updatedAt": "2024-11-03T04:22:08.464Z"
+                            },
+                            {
+                              "id": 3,
+                              "model": "Honda",
+                              "brand": "NSX",
+                              "license_plate": "B 2342 FC",
+                              "year": 2023,
+                              "status": "available",
+                              "created_by": 1,
+                              "updated_by": null,
+                              "deleted_by": null,
+                              "deleted_at": null,
+                              "createdAt": "2024-11-03T04:23:08.914Z",
+                              "updatedAt": "2024-11-03T04:23:08.914Z"
+                            }
+                          ],
+                          "pagination": {
+                            "page": 1,
+                            "size": 10,
+                            "totalPages": 1
+                          }
+                        }
+                      }
+                    },
+                    "example-2": {
+                      "summary": "Succes Get All Cars With Pagination",
+                      "value": {
+                        "status": "Success",
+                        "message": "Succes get all car data",
+                        "isSuccess": true,
+                        "data": {
+                          "totalData": 3,
+                          "cars": [
+                            {
+                              "id": 2,
+                              "model": "Daihatsu",
+                              "brand": "Xenia",
+                              "license_plate": "B 1134 FC",
+                              "year": 2021,
+                              "status": "available",
+                              "created_by": 1,
+                              "updated_by": null,
+                              "deleted_by": null,
+                              "deleted_at": null,
+                              "createdAt": "2024-11-03T04:22:08.464Z",
+                              "updatedAt": "2024-11-03T04:22:08.464Z"
+                            }
+                          ],
+                          "pagination": {
+                            "page": 2,
+                            "size": 1,
+                            "totalPages": 3
+                          }
+                        }
+                      }
+                    },
+                    "example-3": {
+                      "summary": "Success Get All Cars With Filter",
+                      "value": {
+                        "status": "Success",
+                        "message": "Succes get all car data",
+                        "isSuccess": true,
+                        "data": {
+                          "totalData": 1,
+                          "cars": [
+                            {
+                              "id": 1,
+                              "model": "Avanza",
+                              "brand": "Veloz",
+                              "license_plate": "B 2020 FC",
+                              "year": 2022,
+                              "status": "available",
+                              "created_by": 1,
+                              "updated_by": null,
+                              "deleted_by": null,
+                              "deleted_at": null,
+                              "createdAt": "2024-11-03T04:17:34.406Z",
+                              "updatedAt": "2024-11-03T04:17:34.406Z"
+                            }
+                          ],
+                          "pagination": {
+                            "page": 1,
+                            "size": 10,
+                            "totalPages": 1
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/cars/{id}": {
+        "get": {
+          "tags": [
+            "Cars"
+          ],
+          "summary": "Car By Id",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "schema": {
+                "type": "integer"
+              },
+              "required": true,
+              "example": "2"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "342"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"156-MCgUMrrxkUkj3jeNF28rCQJacz4\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 04:37:17 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Succes get car data by id",
+                    "isSuccess": true,
+                    "data": {
+                      "car": {
+                        "id": 2,
+                        "model": "Daihatsu",
+                        "brand": "Xenia",
+                        "license_plate": "B 1134 FC",
+                        "year": 2021,
+                        "status": "available",
+                        "created_by": 1,
+                        "updated_by": null,
+                        "deleted_by": null,
+                        "deleted_at": null,
+                        "createdAt": "2024-11-03T04:22:08.464Z",
+                        "updatedAt": "2024-11-03T04:22:08.464Z"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "75"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4b-n6zLphQ8sTFpvV71y5L4uMUVgVo\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 04:36:50 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Car not found",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/cars/create": {
+        "post": {
+          "tags": [
+            "Cars"
+          ],
+          "summary": "Car",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "model": "Mazda",
+                    "brand": "Miata",
+                    "license_plate": "B 8765 FC"
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "341"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"155-EdVNa1meIE2KOXopoITmdJnR/7Y\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 04:17:34 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Success create car data",
+                    "isSuccess": true,
+                    "data": {
+                      "newCar": {
+                        "status": "available",
+                        "id": 1,
+                        "model": "Avanza",
+                        "brand": "Veloz",
+                        "license_plate": "B 2020 FC",
+                        "year": 2022,
+                        "created_by": 1,
+                        "updatedAt": "2024-11-03T04:17:34.406Z",
+                        "createdAt": "2024-11-03T04:17:34.406Z",
+                        "updated_by": null,
+                        "deleted_by": null,
+                        "deleted_at": null
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "103"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"67-0nsH/K+9fZlT23hdyaY86nJqFDo\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 04:45:40 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "examples": {
+                    "example-0": {
+                      "summary": "Failed Create Car Model Required",
+                      "value": {
+                        "status": "Failed",
+                        "message": "Failed to create car data: model required",
+                        "isSuccess": false,
+                        "data": null
+                      }
+                    },
+                    "example-1": {
+                      "summary": "Failed Create Car Brand Required",
+                      "value": {
+                        "status": "Failed",
+                        "message": "Failed to create car data: brand required",
+                        "isSuccess": false,
+                        "data": null
+                      }
+                    },
+                    "example-2": {
+                      "summary": "Failed Create Car License Plate Reuired",
+                      "value": {
+                        "status": "Failed",
+                        "message": "Failed to create car data: license_plate required",
+                        "isSuccess": false,
+                        "data": null
+                      }
+                    },
+                    "example-3": {
+                      "summary": "Failed Create Car Year Required",
+                      "value": {
+                        "status": "Failed",
+                        "message": "Failed to create car data: year required",
+                        "isSuccess": false,
+                        "data": null
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "75"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4b-JB4mlITukg0TxRJ1RGxsc9DKu1Y\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 04:24:10 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Access denied",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/cars/update/{id}": {
+        "patch": {
+          "tags": [
+            "Cars"
+          ],
+          "summary": "Car",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "status": "nonavailable"
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "schema": {
+                "type": "integer"
+              },
+              "required": true,
+              "example": "2"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "334"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"14e-j3nMoQ9lLpXN3ugoZyV5cXzOoQs\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 05:09:20 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "examples": {
+                    "example-0": {
+                      "summary": "Success Update Model Car",
+                      "value": {
+                        "status": "Success",
+                        "message": "Success update car data",
+                        "isSuccess": true,
+                        "data": {
+                          "car": {
+                            "id": 2,
+                            "model": "Honda",
+                            "brand": "Xenia",
+                            "license_plate": "B 1134 FC",
+                            "year": 2021,
+                            "status": "available",
+                            "created_by": 1,
+                            "updated_by": 1,
+                            "deleted_by": null,
+                            "deleted_at": null,
+                            "createdAt": "2024-11-03T04:22:08.464Z",
+                            "updatedAt": "2024-11-03T05:09:20.388Z"
+                          }
+                        }
+                      }
+                    },
+                    "example-1": {
+                      "summary": "Success Update Status Car",
+                      "value": {
+                        "status": "Success",
+                        "message": "Success update car data",
+                        "isSuccess": true,
+                        "data": {
+                          "car": {
+                            "id": 2,
+                            "model": "Honda",
+                            "brand": "Xenia",
+                            "license_plate": "B 1134 FC",
+                            "year": 2021,
+                            "status": "nonavailable",
+                            "created_by": 1,
+                            "updated_by": 1,
+                            "deleted_by": null,
+                            "deleted_at": null,
+                            "createdAt": "2024-11-03T04:22:08.464Z",
+                            "updatedAt": "2024-11-03T05:20:54.455Z"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "75"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4b-JB4mlITukg0TxRJ1RGxsc9DKu1Y\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 05:10:02 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Access denied",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "75"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4b-n6zLphQ8sTFpvV71y5L4uMUVgVo\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 05:11:48 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Car not found",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/cars/delete/{id}": {
+        "delete": {
+          "tags": [
+            "Cars"
+          ],
+          "summary": "Car",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "schema": {
+                "type": "integer"
+              },
+              "required": true,
+              "example": "20"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "172"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"ac-OBsPedjnQ0iFg/+sL38T6jJk+r0\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 05:14:57 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Success delete car",
+                    "isSuccess": true,
+                    "data": {
+                      "id": 1,
+                      "model": "Avanza",
+                      "brand": "Veloz",
+                      "deleted_by": 1,
+                      "deleted_at": "2024-11-03T05:14:57.446Z"
+                    }
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "75"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4b-JB4mlITukg0TxRJ1RGxsc9DKu1Y\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 05:14:16 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Access denied",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "75"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4b-n6zLphQ8sTFpvV71y5L4uMUVgVo\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 05:15:48 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Car not found",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/cars/check-available": {
+        "get": {
+          "tags": [
+            "Cars"
+          ],
+          "summary": "Check Cars Availability",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "856"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"358-zQuN0Bz2a4TQ71L+SHHhkIUdwCM\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 05:23:47 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Succes get avilable cars",
+                    "isSuccess": true,
+                    "data": {
+                      "car": [
+                        {
+                          "id": 1,
+                          "model": "Avanza",
+                          "brand": "Veloz",
+                          "license_plate": "B 2020 FC",
+                          "year": 2022,
+                          "status": "available",
+                          "created_by": 1,
+                          "updated_by": null,
+                          "deleted_by": 1,
+                          "deleted_at": "2024-11-03T05:14:57.446Z",
+                          "createdAt": "2024-11-03T04:17:34.406Z",
+                          "updatedAt": "2024-11-03T05:14:57.447Z"
+                        },
+                        {
+                          "id": 3,
+                          "model": "Honda",
+                          "brand": "NSX",
+                          "license_plate": "B 2342 FC",
+                          "year": 2023,
+                          "status": "available",
+                          "created_by": 1,
+                          "updated_by": null,
+                          "deleted_by": null,
+                          "deleted_at": null,
+                          "createdAt": "2024-11-03T04:23:08.914Z",
+                          "updatedAt": "2024-11-03T04:23:08.914Z"
+                        },
+                        {
+                          "id": 4,
+                          "model": "Mazda",
+                          "brand": "Miata",
+                          "license_plate": "B 8765 FC",
+                          "year": 2024,
+                          "status": "available",
+                          "created_by": 1,
+                          "updated_by": null,
+                          "deleted_by": null,
+                          "deleted_at": null,
+                          "createdAt": "2024-11-03T05:07:34.371Z",
+                          "updatedAt": "2024-11-03T05:07:34.371Z"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/cars/log": {
+        "get": {
+          "tags": [
+            "Cars"
+          ],
+          "summary": "Check Cars Log",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "1096"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"448-Lie2mqnyG/t+3aWuONGvfuSZtXs\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 05:29:50 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Succes get car log data",
+                    "isSuccess": true,
+                    "data": [
+                      {
+                        "id": 1,
+                        "model": "Avanza",
+                        "brand": "Veloz",
+                        "license_plate": "B 2020 FC",
+                        "year": 2022,
+                        "status": "available",
+                        "created_by": 1,
+                        "updated_by": null,
+                        "deleted_by": 1,
+                        "deleted_at": "2024-11-03T05:14:57.446Z",
+                        "createdAt": "2024-11-03T04:17:34.406Z",
+                        "updatedAt": "2024-11-03T05:14:57.447Z"
+                      },
+                      {
+                        "id": 2,
+                        "model": "Honda",
+                        "brand": "Xenia",
+                        "license_plate": "B 1134 FC",
+                        "year": 2021,
+                        "status": "nonavailable",
+                        "created_by": 1,
+                        "updated_by": 1,
+                        "deleted_by": null,
+                        "deleted_at": null,
+                        "createdAt": "2024-11-03T04:22:08.464Z",
+                        "updatedAt": "2024-11-03T05:20:54.455Z"
+                      },
+                      {
+                        "id": 3,
+                        "model": "Honda",
+                        "brand": "NSX",
+                        "license_plate": "B 2342 FC",
+                        "year": 2023,
+                        "status": "available",
+                        "created_by": 1,
+                        "updated_by": null,
+                        "deleted_by": null,
+                        "deleted_at": null,
+                        "createdAt": "2024-11-03T04:23:08.914Z",
+                        "updatedAt": "2024-11-03T04:23:08.914Z"
+                      },
+                      {
+                        "id": 4,
+                        "model": "Mazda",
+                        "brand": "Miata",
+                        "license_plate": "B 8765 FC",
+                        "year": 2024,
+                        "status": "available",
+                        "created_by": 1,
+                        "updated_by": null,
+                        "deleted_by": null,
+                        "deleted_at": null,
+                        "createdAt": "2024-11-03T05:07:34.371Z",
+                        "updatedAt": "2024-11-03T05:07:34.371Z"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "75"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4b-JB4mlITukg0TxRJ1RGxsc9DKu1Y\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 05:27:35 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Access denied",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/health-check": {
+        "get": {
+          "tags": [
+            "Health Check"
+          ],
+          "summary": "Health Check",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "89"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"59-RfKwN+TJdvEJydzqtfdPAmiDGUI\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 02:39:17 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Succces passed health check",
+                    "isSuccess": true,
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/login": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "summary": "Login",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "email": "ridho@gmail.com",
+                    "password": "123"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "360"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"168-HsofXfMMsdpnfwX28fcke9AFHZY\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 00:54:03 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Succes login",
+                    "isSuccess": true,
+                    "data": {
+                      "username": "Super Admin",
+                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJTdXBlciBBZG1pbiIsImVtYWlsIjoic3VwZXJhZG1pbkBnbWFpbC5jb20iLCJ1c2VySWQiOjEsInJvbGUiOiJzdXBlcmFkbWluIiwiaWF0IjoxNzMwNTk1MjQzLCJleHAiOjE3MzA2ODE2NDN9.5H5EeOkgudhHRyucZLem_aUrwyKWHkvQ6jzFZMcCFmc"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "93"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"5d-xtyCfWe46kqckXaiUnNLGJ28bMs\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 01:09:22 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "examples": {
+                    "example-0": {
+                      "summary": "Failed Login Email Not Include",
+                      "value": {
+                        "status": "Failed",
+                        "message": "Failed to login: email required",
+                        "isSuccess": false,
+                        "data": null
+                      }
+                    },
+                    "example-1": {
+                      "summary": "Failed Login Password Not Include",
+                      "value": {
+                        "status": "Failed",
+                        "message": "Failed to login: password required",
+                        "isSuccess": false,
+                        "data": null
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "78"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4e-+0khs7xRY9djhzK+wo4FBth/Jpk\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 02:37:12 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "examples": {
+                    "example-0": {
+                      "summary": "Failed Login Email Not Found",
+                      "value": {
+                        "status": "Failed",
+                        "messsage": "Email not found",
+                        "isSuccess": false,
+                        "data": null
+                      }
+                    },
+                    "example-1": {
+                      "summary": "Failed Login Invalid Password",
+                      "value": {
+                        "status": "Failed",
+                        "message": "Invalid password",
+                        "isSuccess": false,
+                        "data": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/register": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "summary": "Register",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "username": "Ridho",
+                    "age": 24,
+                    "address": "Karawang",
+                    "email": "ridho@gmail.com",
+                    "password": "123"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "463"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"1cf-it8egq0U+Fa/HXLIY3/9DP5KXZ4\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 01:16:03 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Success register",
+                    "isSuccess": false,
+                    "data": {
+                      "newUser": {
+                        "role": "member",
+                        "id": 2,
+                        "username": "Ahmad Soebardjo",
+                        "age": 24,
+                        "address": "Karawang",
+                        "auth": {
+                          "id": 2,
+                          "email": "ahmadsoebardjo@gmail.com",
+                          "password": "$2a$10$Izo2CBl9laNnhwkZzc9x8OfV6rh.fYwPYDGq0NXVLDaulNNwm1Urm",
+                          "user_id": 2,
+                          "updatedAt": "2024-11-03T01:16:03.679Z",
+                          "createdAt": "2024-11-03T01:16:03.679Z"
+                        },
+                        "updatedAt": "2024-11-03T01:16:03.533Z",
+                        "createdAt": "2024-11-03T01:16:03.533Z"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "103"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"67-/LcQemuNkz/WllRPgAOIt5tMppg\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 01:28:20 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "examples": {
+                    "example-0": {
+                      "summary": "Failed Register Email Already Exists",
+                      "value": {
+                        "status": "Failed",
+                        "message": "Failed register: email already registered",
+                        "isSuccess": false,
+                        "data": null
+                      }
+                    },
+                    "example-1": {
+                      "summary": "Failed Register Username Not Include",
+                      "value": {
+                        "status": "Failed",
+                        "message": "Failed register: username required",
+                        "isSuccess": false,
+                        "data": null
+                      }
+                    },
+                    "example-2": {
+                      "summary": "Failed Register Email Not Include",
+                      "value": {
+                        "status": "Failed",
+                        "message": "Failed register: email required",
+                        "isSuccess": false,
+                        "data": null
+                      }
+                    },
+                    "example-3": {
+                      "summary": "Failed Register Password Not Include",
+                      "value": {
+                        "status": "Failed",
+                        "message": "Failed register: password required",
+                        "isSuccess": false,
+                        "data": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/current-user": {
+        "get": {
+          "tags": [
+            "Auth"
+          ],
+          "summary": "Check Current User",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "134"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"86-Rqfr5iXRkjQG2QUkkrRi+lbzfBQ\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 01:56:11 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Succes get current user",
+                    "isSuccess": true,
+                    "data": {
+                      "id": 1,
+                      "username": "Super Admin",
+                      "role": "superadmin"
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "75"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4b-wh7pR3jJjaRTW81ZcgpoyBCM1hE\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 02:14:15 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Invalid token",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "summary": "All Users",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "565"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"235-SfaRqMXd2zon05MTc31qcMznQF8\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 03:54:28 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Succes get all users data",
+                    "isSuccess": true,
+                    "data": [
+                      {
+                        "id": 1,
+                        "username": "Super Admin",
+                        "age": 20,
+                        "address": "Kab. Bogor, Jawa Barat",
+                        "role": "superadmin",
+                        "createdAt": "2024-11-03T03:03:12.573Z",
+                        "updatedAt": "2024-11-03T03:03:12.573Z"
+                      },
+                      {
+                        "id": 2,
+                        "username": "Rizky Axe",
+                        "age": 24,
+                        "address": "Karawang",
+                        "role": "member",
+                        "createdAt": "2024-11-03T03:04:06.499Z",
+                        "updatedAt": "2024-11-03T03:30:09.062Z"
+                      },
+                      {
+                        "id": 3,
+                        "username": "Tarno",
+                        "age": 20,
+                        "address": "Bekasi",
+                        "role": "admin",
+                        "createdAt": "2024-11-03T03:16:37.987Z",
+                        "updatedAt": "2024-11-03T03:16:37.987Z"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "75"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4b-wh7pR3jJjaRTW81ZcgpoyBCM1hE\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 03:17:28 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Invalid token",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "75"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4b-JB4mlITukg0TxRJ1RGxsc9DKu1Y\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 03:04:58 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Access denied",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/{id}": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "summary": "User By Id",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "schema": {
+                "type": "integer"
+              },
+              "required": true,
+              "example": "1"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "244"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"f4-A6wOTHFh/6Qm5J8Pb1ahDvHJ53w\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 03:12:24 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Succes get user data by id",
+                    "isSuccess": true,
+                    "data": {
+                      "user": {
+                        "id": 2,
+                        "username": "Rizky",
+                        "age": 24,
+                        "address": "Karawang",
+                        "role": "member",
+                        "createdAt": "2024-11-03T03:04:06.499Z",
+                        "updatedAt": "2024-11-03T03:04:06.499Z"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "113"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"71-c5lrMVRaSIEhtDc+zw+HaNfSXk4\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 04:10:00 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Access denied: Members can only view their own data",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "76"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4c-W8Vraln3uAcGty/8Q7M4XK0NMr0\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 04:08:11 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "User not Found",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/create": {
+        "post": {
+          "tags": [
+            "User"
+          ],
+          "summary": "User",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "username": "Rano",
+                    "age": 20,
+                    "address": "Bekasi",
+                    "role": "admin",
+                    "email": "Rano@gmail.com",
+                    "password": "123"
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "448"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"1c0-LNBBuiZoBnw1XbuAJOSNK9hjVes\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 03:16:37 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Success create user data",
+                    "isSuccess": true,
+                    "data": {
+                      "newUser": {
+                        "id": 3,
+                        "username": "Tarno",
+                        "age": 20,
+                        "address": "Bekasi",
+                        "role": "admin",
+                        "auth": {
+                          "id": 3,
+                          "email": "Tarno@gmail.com",
+                          "password": "$2a$10$HGR2iT4.EzUbwz4Prnz1MeqbcEA.eLmD8XBAJbfIqGt1o3X7/m6Ou",
+                          "user_id": 3,
+                          "updatedAt": "2024-11-03T03:16:37.991Z",
+                          "createdAt": "2024-11-03T03:16:37.991Z"
+                        },
+                        "updatedAt": "2024-11-03T03:16:37.987Z",
+                        "createdAt": "2024-11-03T03:16:37.987Z"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "75"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4b-wh7pR3jJjaRTW81ZcgpoyBCM1hE\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 03:15:51 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Invalid token",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "92"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"5c-ICXIeTixeIYjypaZDE0SfER9+nY\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 04:11:06 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Access denied, only superadmin",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/update/{id}": {
+        "patch": {
+          "tags": [
+            "User"
+          ],
+          "summary": "User",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "username": "Ridho Tailor"
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "schema": {
+                "type": "integer"
+              },
+              "required": true,
+              "example": "4"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "253"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"fd-ki6mle+TEnvafgyu8cAsMGWVQLY\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 03:30:09 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Success update user data",
+                    "isSuccess": true,
+                    "data": {
+                      "updatedUser": {
+                        "id": 2,
+                        "username": "Rizky Axe",
+                        "age": 24,
+                        "address": "Karawang",
+                        "role": "member",
+                        "createdAt": "2024-11-03T03:04:06.499Z",
+                        "updatedAt": "2024-11-03T03:30:09.062Z"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "92"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"5c-ICXIeTixeIYjypaZDE0SfER9+nY\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 04:05:41 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Access denied, only superadmin",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "76"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4c-Hv7vrGVA+WZ66DTXnnOBFAViOcc\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 03:23:32 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "User not found",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/delete/{id}": {
+        "delete": {
+          "tags": [
+            "User"
+          ],
+          "summary": "User",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Bearer {{token}}"
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "schema": {
+                "type": "integer"
+              },
+              "required": true,
+              "example": "4"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "81"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"51-S8j1jKpTcx8ZuF/d/bRyBj5lbh4\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 03:56:23 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Success delete user",
+                    "isSuccess": true,
+                    "data": null
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "92"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"5c-ICXIeTixeIYjypaZDE0SfER9+nY\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 04:01:26 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "Access denied, only superadmin",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Access-Control-Allow-Origin": {
+                  "schema": {
+                    "type": "string",
+                    "example": "*"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "76"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"4c-Hv7vrGVA+WZ66DTXnnOBFAViOcc\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Sun, 03 Nov 2024 03:57:36 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "status": "Failed",
+                    "message": "User not found",
+                    "isSuccess": false,
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }

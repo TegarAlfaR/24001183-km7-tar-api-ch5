@@ -1,8 +1,21 @@
-const { User } = require("../models")
+const { User, Auth } = require("../models")
+const bcrypt = require("bcryptjs")
 
 const getUsers = async (req, res) => {
+    const { role } = req.user
     try{
-        const users = await User.findAll()
+        const roleCheck = role.toLowerCase()
+        if(roleCheck === 'member'){
+            return res.status(403).json({
+                status: 'Failed',
+                message: 'Access denied',
+                isSuccess: false,
+                data: null
+            })
+        }
+        const users = await User.findAll({
+            order: [['id', 'ASC']]
+        })
 
         if(users.length === 0){
             return res.status(200).json({
@@ -31,14 +44,25 @@ const getUsers = async (req, res) => {
 }
 
 const getUserById = async (req, res) =>{
-    const id = req.params.id
+    const userId = req.params.id
+    const { id, role } = req.user
     try{
-        const user = await User.findByPk(id)
+        const roleCheck = role.toLowerCase()
+        if (roleCheck === 'member' && id !== userId) {
+            return res.status(403).json({
+                status: "Failed",
+                message: "Access denied: Members can only view their own data",
+                isSuccess: false,
+                data: null
+            });
+        }
+        
+        const user = await User.findByPk(userId)
 
         if(!user){
             return res.status(404).json({
                 status: "Failed",
-                message: "Failed get user data by id",
+                message: "User not Found",
                 isSuccess: false,
                 data: null
             })
@@ -64,22 +88,63 @@ const getUserById = async (req, res) =>{
 }
 
 const createUser = async (req, res) =>{
-    const { username, age, address, role } = req.body
+    const { username, age, address, email, password } = req.body
+    const { role: userRole } = req.user
+
     try{
-        if(!username || !role){
-            return res.status(400).json({
-                status: "Failed",
-                message: "Failed to create user data: username and role are required",
+        const roleCheck = userRole.toLowerCase()
+        if(roleCheck === 'member' || roleCheck === 'admin'){
+            return res.status(403).json({
+                status: 'Failed',
+                message: 'Access denied, only superadmin',
                 isSuccess: false,
                 data: null
             })
         }
-        const newUser = await User.create({
-            username,
-            age,
-            address,
-            role
-        })
+
+        if(!username){
+            return res.status(400).json({
+                status: "Failed",
+                message: "Failed to create user data: username required",
+                isSuccess: false,
+                data: null
+            })
+        }else if(!email){
+            return res.status(400).json({
+                status: "Failed",
+                message: "Failed to create user data: email required",
+                isSuccess: false,
+                data: null
+            })
+        }else if(!password){
+            return res.status(400).json({
+                status: "Failed",
+                message: "Failed to create user data: password required",
+                isSuccess: false,
+                data: null
+            })
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10)
+        const adminRole = 'admin'
+        const newUser = await User.create(
+            {
+                username,
+                age,
+                address,
+                role: adminRole,
+                auth: {
+                    email,
+                    password: hashedPassword
+                }
+            },
+            {
+                include: {
+                    model: Auth,
+                    as: 'auth'
+                }
+            }
+        );
 
         res.status(201).json({
             status: "Success",
@@ -103,7 +168,18 @@ const createUser = async (req, res) =>{
 const updateUser = async (req, res) =>{
     const id = req.params.id
     const { username, age, address } = req.body
+    const { role } = req.user
     try{
+        const roleCheck = role.toLowerCase()
+        if(roleCheck === 'member' || roleCheck === 'admin'){
+            return res.status(403).json({
+                status: 'Failed',
+                message: 'Access denied, only superadmin',
+                isSuccess: false,
+                data: null
+            })
+        }
+
         const findUser = await User.findByPk(id)
         if(!findUser){
             return res.status(404).json({
@@ -114,11 +190,16 @@ const updateUser = async (req, res) =>{
             });
         }
 
-        const updatedUser = await User.update({
+        await User.update({
             username,
             age,
             address
+        },
+        {
+            where: { id }
         })
+        
+        const updatedUser = await User.findByPk(id);
 
         res.status(200).json({
             status: "Success",
@@ -142,7 +223,18 @@ const updateUser = async (req, res) =>{
 
 const deleteUser = async (req, res) => {
     const id  = req.params.id
+    const { role } = req.user
     try {
+        const roleCheck = role.toLowerCase()
+        if(roleCheck === 'member' || roleCheck === 'admin'){
+            return res.status(403).json({
+                status: 'Failed',
+                message: 'Access denied, only superadmin',
+                isSuccess: false,
+                data: null
+            })
+        }
+
         const findUser = await User.findByPk(id)
         if(!findUser){
             return res.status(404).json({
