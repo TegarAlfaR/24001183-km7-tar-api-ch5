@@ -10,6 +10,14 @@
         "url": "http://localhost:3000/api/v1"
       }
     ],
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      }
+    },
     "tags": [
       {
         "name": "Cars",
@@ -35,6 +43,11 @@
             "Cars"
           ],
           "summary": "All Cars",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "description": "Retrieves all available car data with options for filtering and pagination.",
           "parameters": [
             {
@@ -259,6 +272,11 @@
             "Cars"
           ],
           "summary": "Car By Id",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "parameters": [
             {
               "name": "Authorization",
@@ -435,6 +453,11 @@
             "Cars"
           ],
           "summary": "Car",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "requestBody": {
             "content": {
               "application/json": {
@@ -714,6 +737,11 @@
             "Cars"
           ],
           "summary": "Car",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "requestBody": {
             "content": {
               "application/json": {
@@ -997,6 +1025,11 @@
             "Cars"
           ],
           "summary": "Car",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "parameters": [
             {
               "name": "Authorization",
@@ -1230,6 +1263,11 @@
             "Cars"
           ],
           "summary": "Check Cars Availability",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "parameters": [
             {
               "name": "Authorization",
@@ -1361,6 +1399,11 @@
             "Cars"
           ],
           "summary": "Check Cars Log",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "parameters": [
             {
               "name": "Authorization",
@@ -2106,6 +2149,11 @@
             "Auth"
           ],
           "summary": "Check Current User",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "parameters": [
             {
               "name": "Authorization",
@@ -2262,6 +2310,11 @@
             "User"
           ],
           "summary": "All Users",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "parameters": [
             {
               "name": "Authorization",
@@ -2508,6 +2561,11 @@
             "User"
           ],
           "summary": "User By Id",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "parameters": [
             {
               "name": "Authorization",
@@ -2745,6 +2803,11 @@
             "User"
           ],
           "summary": "User",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "requestBody": {
             "content": {
               "application/json": {
@@ -2998,6 +3061,11 @@
             "User"
           ],
           "summary": "User",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "requestBody": {
             "content": {
               "application/json": {
@@ -3247,6 +3315,11 @@
             "User"
           ],
           "summary": "User",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "parameters": [
             {
               "name": "Authorization",
