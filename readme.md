@@ -130,6 +130,11 @@ Swagger is used to generate OpenAPI-based documentation. To view the Swagger doc
 - **PATCH** `/users/update/:id` - Update a user by ID. Requires `{{token}}`.
 - **DELETE** `/users/delete/:id` - Delete a user by ID. Requires `{{token}}`.
 
+## Superadmin email
+
+email: superadmin@gmail.com
+password: superadmin@password123
+
 ## Database Structure
 
 The database structure for this project is illustrated in the ERD diagram below:
